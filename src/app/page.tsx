@@ -11,6 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+// 빌드 시 정적 생성하지 않고 요청 시마다 렌더 (Vercel 빌드에서 DB 연결 불필요)
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const userList = await db.select().from(users).orderBy(users.createdAt);
 
@@ -22,7 +25,7 @@ export default async function Home() {
           src="/next.svg"
           alt="Next.js logo"
           width={100}
-          height={20}
+          height={20}          
           priority
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
@@ -99,6 +102,7 @@ export default async function Home() {
               alt="Vercel logomark"
               width={16}
               height={16}
+              style={{ width: '16px', height: '16px' }}
             />
             Deploy Now
           </a>
