@@ -1,8 +1,3 @@
-import Image from "next/image";
-import { db } from "@/lib/db";
-import { users } from "../../db/schema";
-import { addUser } from "./actions";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,83 +6,74 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-// 빌드 시 정적 생성하지 않고 요청 시마다 렌더 (Vercel 빌드에서 DB 연결 불필요)
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const userList = await db.select().from(users).orderBy(users.createdAt);
-
+export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}          
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-background font-sans">
+      <main className="mx-auto max-w-2xl px-6 py-16 sm:py-24">
+        <header className="mb-12 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            이현기
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-2 text-lg text-muted-foreground">
+            프론트엔드 개발자 · 경력 5년
           </p>
-        </div>
+          <a
+            href="mailto:gusrldlqslek@gmail.com"
+            className="mt-4 inline-block text-primary underline-offset-4 hover:underline"
+          >
+            gusrldlqslek@gmail.com
+          </a>
+        </header>
 
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Users (Drizzle + Supabase)</CardTitle>
-            <CardDescription>
-              DB에서 조회한 사용자 목록입니다. 아래 폼으로 추가할 수 있습니다.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <form action={addUser} className="flex flex-col gap-3">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-                className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              />
-              <input
-                type="text"
-                name="name"
-                placeholder="Name (optional)"
-                className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              />
-              <Button type="submit">Add user</Button>
-            </form>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              {userList.length === 0 ? (
-                <li>No users yet.</li>
-              ) : (
-                userList.map((u) => (
-                  <li key={u.id}>
-                    {u.name ?? u.email} ({u.email})
-                  </li>
-                ))
-              )}
-            </ul>
-          </CardContent>
-        </Card>
+        <section className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>소개</CardTitle>
+              <CardDescription>프론트엔드 개발자 이현기입니다.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-muted-foreground">
+              <p>
+                5년간 웹 프론트엔드 개발 경력을 보유하고 있으며, 사용자 경험과
+                유지보수성을 고려한 개발을 지향합니다.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>직무</CardTitle>
+              <CardDescription>담당 역할</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="font-medium text-foreground">프론트엔드 개발자</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>경력</CardTitle>
+              <CardDescription>총 경력</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="font-medium text-foreground">5년</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>연락처</CardTitle>
+              <CardDescription>이메일</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <a
+                href="mailto:gusrldlqslek@gmail.com"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                gusrldlqslek@gmail.com
+              </a>
+            </CardContent>
+          </Card>
+        </section>
       </main>
     </div>
   );
